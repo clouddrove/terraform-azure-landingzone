@@ -152,6 +152,8 @@ resource "azurerm_virtual_network_gateway" "connectivity" {
   active_active                    = each.value.template.active_active
   private_ip_address_enabled       = each.value.template.private_ip_address_enabled
   default_local_network_gateway_id = each.value.template.default_local_network_gateway_id
+  remote_vnet_traffic_enabled      = each.value.template.remote_vnet_traffic_enabled
+  virtual_wan_traffic_enabled      = each.value.template.virtual_wan_traffic_enabled
   sku                              = each.value.template.sku
   generation                       = each.value.template.generation
   tags                             = each.value.template.tags
@@ -327,7 +329,9 @@ resource "azurerm_firewall_policy" "connectivity" {
   }
 
   dynamic "threat_intelligence_allowlist" {
-    for_each = each.value.template.threat_intelligence_allowlist
+    # Ensure that the dynamic block is created only if the allowlist is defined
+    for_each = length(keys(each.value.template.threat_intelligence_allowlist)) > 0 ? [each.value.template.threat_intelligence_allowlist] : []
+
     content {
       # Optional attributes
       fqdns        = lookup(threat_intelligence_allowlist.value, "fqdns", null)
