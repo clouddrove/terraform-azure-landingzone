@@ -188,7 +188,7 @@ locals {
       archetype_config           = local.es_archetype_config_map["${local.root_id}-sandboxes"]
     }
     "${local.root_id}-landing-zones" = {
-      display_name               = "${var.root_id}-landing-zone-mg"
+      display_name               = "${var.root_id}-landing-zones-mg"
       parent_management_group_id = local.root_id
       subscription_ids           = local.es_subscription_ids_map["${local.root_id}-landing-zones"]
       archetype_config           = local.es_archetype_config_map["${local.root_id}-landing-zones"]
