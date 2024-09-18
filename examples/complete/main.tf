@@ -15,6 +15,7 @@ data "azurerm_client_config" "core" {}
 
 
 module "enterprise_scale" {
+  # source = "clouddrove/landingzone/azure"
   source = "../../"
   # version = "5.0.3" # change this to your desired version, https://www.terraform.io/language/expressions/version-constraints
 
