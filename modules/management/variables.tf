@@ -53,11 +53,14 @@ variable "settings" {
     log_analytics = optional(object({
       enabled = optional(bool, true)
       config = optional(object({
-        retention_in_days          = optional(number, 30)
-        enable_monitoring_for_vm   = optional(bool, true)
-        enable_monitoring_for_vmss = optional(bool, true)
-        enable_sentinel            = optional(bool, true)
-        enable_change_tracking     = optional(bool, true)
+        retention_in_days                      = optional(number, 30)
+        enable_monitoring_for_vm               = optional(bool, true)
+        enable_monitoring_for_vmss             = optional(bool, true)
+        enable_sentinel                        = optional(bool, true)
+        enable_change_tracking                 = optional(bool, true)
+        enable_solution_for_vm_insights        = optional(bool, true)
+        enable_solution_for_container_insights = optional(bool, true)
+        sentinel_customer_managed_key_enabled  = optional(bool, false)
       }), {})
     }), {})
     security_center = optional(object({
@@ -136,7 +139,7 @@ variable "custom_settings_by_resource_type" {
   default     = {}
 
   validation {
-    condition     = can([for k in keys(var.custom_settings_by_resource_type) : contains(["azurerm_resource_group", "azurerm_log_analytics_workspace", "azurerm_log_analytics_solution", "azurerm_automation_account", "azurerm_log_analytics_linked_service"], k)]) || var.custom_settings_by_resource_type == {}
+    condition     = can([for k in keys(var.custom_settings_by_resource_type) : contains(["azurerm_resource_group", "azurerm_log_analytics_workspace", "azurerm_log_analytics_solution", "azurerm_automation_account", "azurerm_log_analytics_linked_service", "azurerm_data_collection_rule"], k)]) || var.custom_settings_by_resource_type == {}
     error_message = "Invalid key specified. Please check the list of allowed resource types supported by the management module for caf-enterprise-scale."
   }
 }
