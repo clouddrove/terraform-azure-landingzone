@@ -30,13 +30,13 @@ jobs:
       pull-requests: write
     steps:
       - name: Local repository checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: ${{ github.repository }}
           fetch-depth: 0
 
       - name: Remote repository checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ env.remote_repository }}
           path: ${{ env.remote_repository }}
